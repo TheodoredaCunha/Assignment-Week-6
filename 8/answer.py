@@ -6,7 +6,7 @@ def get_next(pokemon):
 		return []
 
 pokedex = """audino bagon baltoy banette bidoof braviary bronzor carracosta
-charmeleon cresselia croagunk darmanitan deino emboar emolga exeggcute
+ charmeleon cresselia croagunk darmanitan deino emboar emolga exeggcute
  gabite girafarig gulpin haxorus heatmor heatran ivysaur jellicent jumpluff
  kangaskhan kricketune landorus ledyba loudred lumineon lunatone machamp magnezone mamoswine nosepass
  petilil pidgeotto pikachu pinsir poliwrath poochyena porygon2 porygonz registeel relicanth remoraid rufflet
@@ -43,12 +43,15 @@ def play_game(name):
 	current_chain.append(name)
 	current_length += 1
 	next_list = get_next(name)
-	pokemons_dictionary2[name[0]].remove(name)
+	try:
+		pokemons_dictionary2[name[0]].remove(name)
+	except:
+		pass
 	if len(next_list) == 0:
 		if current_length >= record:
 			record = current_length
 			chain = current_chain
-		print("{}: {}".format(record, chain))
+		print("{}: {}".format(current_length, current_chain))
 		current_chain = []
 		current_length = 0
 		pokemons_dictionary2 = pokemons_dictionary
@@ -56,11 +59,6 @@ def play_game(name):
 		for i in next_list:
 			play_game(i)
 
-"""
 for i in list_of_pokemons:
 	print(i)
-	pokemons_dictionary2 = pokemons_dictionary
 	play_game(i)
-"""
-
-play_game("machamp")
