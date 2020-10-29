@@ -1,7 +1,7 @@
-def get_next(pokemon):
+def get_next(pokemon, dictionary):
 	try:
 		next_letter = pokemon[len(pokemon) - 1]
-		return pokemons_dictionary2[next_letter]
+		return dictionary[next_letter]
 	except:
 		return []
 
@@ -27,24 +27,22 @@ for pokemon in list_of_pokemons:
 		pokemons_dictionary[pokemon[0]] = []
 		pokemons_dictionary[pokemon[0]].append(pokemon)
 
-pokemons_dictionary2 = pokemons_dictionary
 		
 record = 0
 chain = []	
 current_length = 0
 current_chain = []
 
-def play_game(name):
+def play_game(name, dictionary):
 	global current_chain
 	global current_length
 	global record 
 	global chain
-	global pokemons_dictionary2
 	current_chain.append(name)
 	current_length += 1
-	next_list = get_next(name)
+	next_list = get_next(name, dictionary)
 	try:
-		pokemons_dictionary2[name[0]].remove(name)
+		dictionary[name[0]].remove(name)
 	except:
 		pass
 	if len(next_list) == 0:
@@ -54,11 +52,10 @@ def play_game(name):
 		print("{}: {}".format(current_length, current_chain))
 		current_chain = []
 		current_length = 0
-		pokemons_dictionary2 = pokemons_dictionary
 	else:
 		for i in next_list:
-			play_game(i)
+			play_game(i, pokemons_dictionary)
 
 for i in list_of_pokemons:
 	print(i)
-	play_game(i)
+	play_game(i, pokemons_dictionary)
